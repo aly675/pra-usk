@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard Guru</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+        <div class="offcanvas offcanvas-start show bg-light" style="width: 15%" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header d-flex justify-content-center" style="height: 9vh">
+                 <a class="navbar-brand d-flex flex-column align-items-center" href="#">
+                    <img src="{{ asset('assets/img/image.png') }}" alt="SMKN 12 JAKARTA" height="64">
+                    <p class="mt-2 mb-0">SMKN 12 Jakarta</p>
+                </a>
+            </div>
+            <hr>
+            <div class="offcanvas-body d-flex flex-column justify-content-between p-0">
+                <div class="d-flex flex-column gap-2 w-100">
+                    <a href="{{ route('guru.dashboard-guru-page') }}" class="btn text-start ps-4 py-2 {{ Request::is('guru/dashboard-guru') ? 'active bg-primary text-white' : '' }}">
+                        <i class="fas fa-users me-2"></i>Daftar Guru
+                    </a>
+                    <a href="{{ route('guru.dashboard-siswa-page') }}" class="btn text-start ps-4 py-2">
+                        <i class="fas fa-users me-2"></i>Daftar Siswa
+                    </a>
+                    <a href="{{ route('guru.dashboard-absensi-page') }}" class="btn text-start ps-4 py-2">
+                        <i class="fas fa-clipboard-list me-2"></i>Absensi
+                    </a>
+                </div>
+
+                <div class="w-100">
+                    <hr class="my-2">
+                   <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn text-start ps-4 py-2 text-danger w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid p-0" style="margin-left: 15%">
+            <nav class="navbar bg-primary">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex align-items-center" style="height: 9vh" href="{{ route('guru.dashboard-guru-page') }}">
+                        <h3 class="text-white">
+                            Guru / Dashboard / Tambah-Guru
+                        </h3>
+                    </a>
+                </div>
+            </nav>
+            <div class="container m-0" style="max-width: 85%">
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <h1>Tambah Guru</h1>
+                </div>
+
+               <form action="{{ route('guru.tambah-guru') }}" method="POST" class="mt-4">
+                    @csrf
+                    @method('POST')
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="nama" class="form-label">Nama</label>
+                                        <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}" required>
+                                        @error('nama')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="nip" class="form-label">NIP</label>
+                                        <input type="number" name="nip" id="nip" class="form-control @error('nip') is-invalid @enderror" value="{{ old('nip') }}" required>
+                                        @error('nip')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="text" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
+                                        @error('password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('guru.dashboard-guru-page') }}" class="btn btn-secondary me-2">Batal</a>
+                                <button type="submit" class="btn btn-primary">Tambah Guru</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+
+
+</html>
